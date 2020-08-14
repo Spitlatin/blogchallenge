@@ -4,7 +4,8 @@
 <p><%= startingContent %></p>
 <% postArray.forEach(function(post)  { %>
     <h1><%= post.title %></h1> 
-    <p><%= post.text %></p>
+    <p><%= post.text.substring(0,100); %> ... 
+        <a class="btn"href="posts/<%= post.title %>">Read More</a></p>
     <%});%>
 <!-- FOR EACH METHOD IS THE TITS COMPARED TO A DUMB ASS FOR LOOP -->
 <%- include('partials/footer') %>
