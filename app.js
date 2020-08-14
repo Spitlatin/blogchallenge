@@ -29,13 +29,17 @@ res.render("home", {
 // GOOGLE EXPRESS ROUTE PARAMETERS, IT'S WAY DOWN //
 // GET    PAGE/PARAMS     CALLBACK REQ RES
 app.get("/posts/:Post", function(req, res){
-let requestedTitle = req.params.Post;
 
-posts.forEach(function(object) {
+  let requestedTitle = req.params.Post;
+//THE WAY SCHOOL TAUGHT ME TO WRITE IT:
+// posts.forEach(function(object) {
+
+//THE WAY I FOUND ON STACK THAT'S SIMPLER:
+  posts.forEach(object => {
   let storedTitle = object.title;
   if (requestedTitle === storedTitle){
   console.log("MATCH FOUND!");
-  }
+  };
 });
 
 });
