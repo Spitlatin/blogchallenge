@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+// NODE_MODULE INCLUSIONS
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -15,13 +15,56 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+// GLOBAL VARIABLES
+let posts = [];
+
 app.get("/", function(req, res){
-res.render("home.ejs");
+res.render("home", {
+  startingContent: homeStartingContent, 
+  postArray: posts
+});
+});
+
+
+// GOOGLE EXPRESS ROUTE PARAMETERS, IT'S WAY DOWN //
+// GET    PAGE/PARAMS     CALLBACK REQ RES
+app.get("/posts/:Post", function(req, res){
+let requestedTitle = req.params.Post;
+
+posts.forEach(function(object) {
+  let storedTitle = object.title;
+  if (requestedTitle === storedTitle){
+  console.log("MATCH FOUND!");
+  }
+});
+
 });
 
 
 
+app.get("/about", function(req, res){
+res.render("about", {aboutPageContent: aboutContent});
+});
 
+app.get("/contact", function(req, res){
+res.render("contact", {contactParagraph: contactContent});
+
+});
+
+app.get("/compose", function(req, res){
+res.render("compose");
+});
+
+app.post("/compose", function(req, res){
+
+  const postContent = {
+  title: req.body.formTitle,
+  text: req.body.formText
+  };
+  posts.push(postContent);
+  res.redirect("/");
+  // console.log(postContent);
+});
 
 
 
